@@ -1,5 +1,6 @@
 "use client";
 
+import { getUserInfo, removeUserInfo } from "@/services/auth.service";
 import { UserOutlined } from "@ant-design/icons";
 import {
   Avatar,
@@ -13,7 +14,7 @@ import {
 } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../../../public/images/logo.jpg";
 const { Header } = Layout;
 const { Title } = Typography;
@@ -21,12 +22,17 @@ const { Title } = Typography;
 const Navbar = () => {
   const [role, setRole] = useState();
 
+  const logout = () => {
+    removeUserInfo();
+    setRole(undefined);
+  };
+
   const items: MenuProps["items"] = [
     {
       label: <Link href={"/"}>Home</Link>,
       key: "home",
     },
-    role === "ADMIN"
+    role === "admin"
       ? {
           label: <Link href={"/dashboard"}>Dashboard</Link>,
           key: "dashboard",
@@ -42,12 +48,18 @@ const Navbar = () => {
     {
       key: "0",
       label: (
-        <Button type="text" danger>
+        <Button type="text" danger onClick={logout}>
           Logout
         </Button>
       ),
     },
   ];
+
+  useEffect(() => {
+    const { role } = getUserInfo() as any;
+
+    setRole(role);
+  }, []);
 
   return (
     <Header
@@ -94,7 +106,7 @@ const Navbar = () => {
               level={5}
               style={{ margin: "auto 8px" }}
             >
-              {role === "ADMIN" ? "Admin" : "User"}
+              {role === "admin" ? "admin" : "user"}
             </Title>
             <Dropdown
               menu={{ items: avatarItems }}
