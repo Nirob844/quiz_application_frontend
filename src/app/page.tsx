@@ -1,22 +1,14 @@
-import Banner from "@/components/ui/home/banner";
-import Navbar from "@/components/ui/home/navbar";
-import { Layout } from "antd";
 import { Metadata } from "next";
-
-const { Content } = Layout;
+import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
   title: "Quiz_Application",
   description: "Quiz Management Application",
 };
+const HomePage = dynamic(() => import("@/components/ui/home/home"), {
+  ssr: false,
+});
 
 export default function Home() {
-  return (
-    <div>
-      <div>
-        <Navbar />
-        <Banner />
-      </div>
-    </div>
-  );
+  return <HomePage />;
 }
