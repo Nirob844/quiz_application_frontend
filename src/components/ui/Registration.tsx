@@ -2,9 +2,11 @@
 
 import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
-import { Button, Col, Row } from "antd";
+import { useUserRegisterMutation } from "@/redux/api/authApi";
+import { Button, Col, Row, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
 import registrationImage from "../../assets/registration.png";
 
@@ -16,8 +18,28 @@ type FormValues = {
 };
 
 const RegistrationPageComponent = () => {
+  const [userRegister] = useUserRegisterMutation();
+
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    console.log(data);
+    const { confirmPassword, ...newData } = data;
+
+    if (newData.password !== confirmPassword) {
+      message.error("Password and Confirm Password do not match.");
+      return;
+    }
+
+    try {
+      const res = await userRegister(newData).unwrap();
+      console.log(res);
+      if (!!res) {
+        router.push("/login");
+        message.success("register in successfully!! please login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -56,7 +78,12 @@ const RegistrationPageComponent = () => {
           <Form submitHandler={onSubmit}>
             <Row gutter={[10, 10]}>
               <Col span={24}>
-                <FormInput name="name" label="Name" type="text" size="large" />
+                <FormInput
+                  name="fullName"
+                  label="Full Name"
+                  type="text"
+                  size="large"
+                />
               </Col>
 
               <Col span={24}>
