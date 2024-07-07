@@ -2,7 +2,6 @@ import {
   DashboardOutlined,
   FileProtectOutlined,
   HomeOutlined,
-  ProfileOutlined,
   TableOutlined,
   UnorderedListOutlined,
   UserOutlined,
@@ -12,7 +11,7 @@ import Link from "next/link";
 import { USER_ROLE } from "./role";
 
 export const sidebarItems = (data: string) => {
-  const role = data === "ADMIN" ? "admin" : "performer";
+  const role = data === "ADMIN" ? "admin" : "user";
 
   const defaultSidebarItems: MenuProps["items"] = [
     {
@@ -40,39 +39,34 @@ export const sidebarItems = (data: string) => {
       icon: <TableOutlined />,
     },
     {
-      label: <Link href={`/${role}/performers`}>Performers List</Link>,
-      key: "performers-list",
+      label: <Link href={`/${role}/users`}>Users List</Link>,
+      key: "users_list",
       icon: <UserOutlined />,
     },
     {
       label: <Link href={`/${role}/admins`}>Admins List</Link>,
-      key: "admins-list",
+      key: "admins_list",
       icon: <UserOutlined />,
     },
   ];
 
-  const performerSidebarItems: MenuProps["items"] = [
+  const userSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
 
     {
-      label: <Link href={`/${role}/start-quiz`}>Start Quiz</Link>,
-      key: "start-quiz",
+      label: <Link href={`/${role}/start_quiz`}>Start Quiz</Link>,
+      key: "start_quiz",
       icon: <UnorderedListOutlined />,
     },
     {
-      label: <Link href={`/${role}/my-performance`}>My Performance</Link>,
-      key: "my-performance",
+      label: <Link href={`/${role}/my_performance`}>My Performance</Link>,
+      key: "my_performance",
       icon: <FileProtectOutlined />,
-    },
-    {
-      label: <Link href={`/leaderboard`}>Leaderboard</Link>,
-      key: "leaderboard",
-      icon: <ProfileOutlined />,
     },
   ];
 
   if (data === USER_ROLE.ADMIN) return adminSidebarItems;
-  else if (data === USER_ROLE.PERFORMER) return performerSidebarItems;
+  else if (data === USER_ROLE.USER) return userSidebarItems;
   else {
     return defaultSidebarItems;
   }
