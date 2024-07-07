@@ -1,3 +1,4 @@
+import Navbar from "@/components/ui/home/navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +7,11 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <div>this is home page</div>;
+  return (
+    <div>
+      <div>
+        <Navbar />
+      </div>
+    </div>
+  );
 }
