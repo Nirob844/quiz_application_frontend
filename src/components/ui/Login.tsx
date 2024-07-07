@@ -14,9 +14,7 @@ type formValues = {
 };
 
 const LoginPageComponent = () => {
-  const onSubmit: SubmitHandler<formValues> = async (data: formValues) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<formValues> = async (data: formValues) => {};
 
   return (
     <Row
@@ -72,7 +70,7 @@ const LoginPageComponent = () => {
                 placeholder="123456"
               />
             </div>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               Login
             </Button>
           </Form>

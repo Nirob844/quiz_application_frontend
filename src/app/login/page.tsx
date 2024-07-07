@@ -2,7 +2,7 @@ import LoginPageComponent from "@/components/ui/Login";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "IQuiz | login",
+  title: "Quiz | login",
   description: "Quiz Management Application",
 };
 
