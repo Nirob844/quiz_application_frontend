@@ -1,8 +1,8 @@
 "use client";
 import { Layout } from "antd";
+import Banner from "./Banner";
 import AppFooter from "./Footer";
-import Banner from "./banner";
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 const { Content } = Layout;
 
 const Home = () => {

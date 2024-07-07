@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Quiz_Application",
   description: "Quiz Management Application",
 };
-const HomePage = dynamic(() => import("@/components/ui/home/home"), {
+const HomePage = dynamic(() => import("@/components/ui/home/Home"), {
   ssr: false,
 });
 
