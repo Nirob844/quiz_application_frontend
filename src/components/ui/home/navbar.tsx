@@ -37,11 +37,10 @@ const Navbar = () => {
           label: <Link href={"/dashboard"}>Dashboard</Link>,
           key: "dashboard",
         }
-      : null,
-    {
-      label: <Link href={"/start-quiz"}>Start Quiz</Link>,
-      key: "start-quiz",
-    },
+      : {
+          label: <Link href={"/start-quiz"}>Start Quiz</Link>,
+          key: "start-quiz",
+        },
   ];
 
   const avatarItems: MenuProps["items"] = [
