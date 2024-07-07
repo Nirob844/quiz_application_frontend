@@ -2,9 +2,12 @@
 
 import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
-import { Button, Col, Row } from "antd";
+import { useUserLoginMutation } from "@/redux/api/authApi";
+import { storeUserInfo } from "@/services/auth.service";
+import { Button, Col, Row, message } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
 import loginImage from "../../assets/login.png";
 
@@ -14,7 +17,24 @@ type formValues = {
 };
 
 const LoginPageComponent = () => {
-  const onSubmit: SubmitHandler<formValues> = async (data: formValues) => {};
+  const [userLogin] = useUserLoginMutation();
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<formValues> = async (data: formValues) => {
+    try {
+      const res = await userLogin(data).unwrap();
+
+      if (res?.accessToken) {
+        router.push("/");
+        message.success("Logged in successfully!!");
+      }
+
+      storeUserInfo({ accessToken: res?.accessToken });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Row
