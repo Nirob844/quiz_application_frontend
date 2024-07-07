@@ -70,7 +70,7 @@ const LoginPageComponent = () => {
                 placeholder="123456"
               />
             </div>
-            <Button type="primary" htmlType="submit" loading={isLoading}>
+            <Button type="primary" htmlType="submit">
               Login
             </Button>
           </Form>
